@@ -1,0 +1,22 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.site-layout{
+    padding: 0px 50px;
+}
+.table-user {
+    margin: 16px 0,
+}
+.footer {
+    text-align: center;
+}
+.bnt-add {
+    background-color: #f9cc43;
+    color: #ffffff;
+    margin: 16px 0;
+}
