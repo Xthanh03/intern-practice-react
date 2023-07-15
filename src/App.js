@@ -1,7 +1,7 @@
+import { Layout, Menu } from 'antd';
 import './App.scss';
-import Header from './components/Header';
 import TableUser from './components/table/TableUser';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { Header, Content, Footer } = Layout;
@@ -36,6 +36,18 @@ function App() {
       >
         Ant Design ©2023 Created by Ant UED
       </Footer>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Layout>
   );
 }

@@ -188,6 +188,9 @@ const TableUser = () => {
         }
     ];
 
+    const onAddUsers = (user) => {
+        setListUsers([user, ...listUsers])
+    }
 
     return (
         <>
@@ -195,6 +198,7 @@ const TableUser = () => {
                 <ModalAddUsers
                     show={isShowModalAddNew}
                     close={() => setIsShowModalAddNew(false)}
+                    onAddUsers={onAddUsers}
                 />
                 <Card>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>

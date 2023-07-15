@@ -1,39 +1,66 @@
 import { Modal, Button, Input, Form, Row, Col, Upload } from 'antd';
 import { useState } from 'react';
+import { postCreateUser } from '../../services/UserService';
+import { toast } from 'react-toastify';
 
 const ModalAddUsers = (props) => {
     const [form] = Form.useForm();
+    const { show, close, onAddUsers } = props;
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("")
     const [avatar, setAvatar] = useState("");
+    const [name, setName] = useState("");
+    const [job, setJob] = useState("");
 
-    const handleSaveUser = () => {
-        console.log('handleSaveUser: ', "email =", email);
+    const handleSaveUsers = async () => {
+        let res = await postCreateUser(name, job);
+
+        if (res && res.id) {
+            toast.success('Thêm mới thành công!!!');
+            close();
+            onAddUsers({first_name: name, id: res.id});
+        } else {
+            toast.error('Thêm mới thất bại!!!');
+        }
     }
 
     return (
         <Modal
             width={600}
             title={props ? "Thêm mới User" : "Edit Users"}
-            open={props.show}
-            onCancel={props.close}
+            open={show}
+            onCancel={close}
             footer
         >
             <Form form={form}>
                 <Form.Item
+                    name="name"
+                    label='Name'
+                >
+                    <Input
+                        size="large"
+                        labelText="Name"
+                        value={name}
+                        onClick={(event) => setName(event.target.value)}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="job"
+                    label='Job'
+                >
+                    <Input
+                        size="large"
+                        labelText="Job"
+                        value={name}
+                        onClick={(event) => setJob(event.target.value)}
+                    />
+                </Form.Item>
+
+                {/* <Form.Item
                     name="email"
                     label='Email'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Vui lòng nhập địa chỉ email của bạn !!!',
-                        },
-                        {
-                            type: 'email',
-                            message: 'Địa chỉ email không đúng định dạng !!!',
-                        },
-                    ]}
                 >
                     <Input
                         size="large"
@@ -41,9 +68,9 @@ const ModalAddUsers = (props) => {
                         value={email}
                         onClick={(event) => setEmail(event.target.value)}
                     />
-                </Form.Item>
+                </Form.Item> */}
 
-                <Form.Item>
+                {/* <Form.Item>
                     <Row gutter={8}>
                         <Col span={12}>
                             <Form.Item label='First Name'>
@@ -68,7 +95,6 @@ const ModalAddUsers = (props) => {
                 <Form.Item
                     name="avatar"
                     label="Avatar"
-                    rules={[{ required: true, message: 'Vui lòng thêm hình ảnh!!!' }]}
                 >
                     <Upload
                         action="/upload.do"
@@ -80,7 +106,7 @@ const ModalAddUsers = (props) => {
                     >
                         <div>Upload</div>
                     </Upload>
-                </Form.Item>
+                </Form.Item> */}
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div></div>
                     <Form.Item>
@@ -92,7 +118,7 @@ const ModalAddUsers = (props) => {
                             type="primary"
                             size="large"
                             style={{ marginLeft: 10 }}
-                            onClick={() => handleSaveUser()}
+                            onClick={() => handleSaveUsers()}
                         >
                             Thêm mới
                         </Button>
